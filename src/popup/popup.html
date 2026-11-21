@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MateIt Study</title>
+  <style>
+    *{box-sizing:border-box}
+    body{width:340px;margin:0;padding:20px;color:#e9f0ed;background:#10191d;font:13px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    .brand{display:flex;align-items:center;gap:11px}
+    .mark{width:36px;height:36px;display:grid;grid-template:repeat(2,7px)/repeat(2,7px);place-content:center;gap:3px;border:1px solid #496c68;border-radius:11px;background:#1a302f}
+    .mark i{display:block;border-radius:2px;background:#8ad2be}.mark i:nth-child(2),.mark i:nth-child(3){opacity:.5}
+    h1{margin:0;font-size:15px;letter-spacing:-.4px}.sub{color:#81938e;font-size:9px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase}
+    .intro{margin:19px 0 15px;padding:14px 14px 13px;border:1px solid #344a47;border-radius:11px;background:#182725}
+    .eyebrow{color:#8ebdaf;font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+    h2{margin:6px 0 5px;font-size:18px;line-height:1.15;letter-spacing:-.7px}
+    p{margin:0;color:#9eafaa;font-size:11px;line-height:1.55}
+    button{width:100%;min-height:42px;border:1px solid #73bda8;border-radius:8px;color:#0c211c;background:#9bd9c5;font:800 12px/1.2 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;cursor:pointer;transition:transform .15s,background .15s}
+    button:hover{background:#b1ead8;transform:translateY(-1px)}button:active{transform:translateY(0)}
+    .note{margin-top:12px;padding-left:11px;border-left:2px solid #638c80;color:#8d9f99;font-size:10px;line-height:1.55}
+    #status{min-height:18px;margin-top:9px;color:#9bd9c5;font-size:10px}
+    .foot{margin-top:17px;padding-top:12px;border-top:1px solid #293a38;color:#71837e;font-size:9px}
+  </style>
+</head>
+<body>
+  <header class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><div><h1>MateIt / Study</h1><div class="sub">A separate chess workspace</div></div></header>
+  <section class="intro"><div class="eyebrow">Review outside the game page</div><h2>Your board. A calmer workspace.</h2><p>Open a dedicated window for move navigation, PGN review and local Stockfish analysis.</p></section>
+  <button id="open" type="button">Open study window <span aria-hidden="true">↗</span></button>
+  <div id="status" role="status" aria-live="polite"></div>
+  <p class="note">MateIt follows Chess.com Analysis, completed games and live boards in a separate window. Stockfish runs locally; engine assistance is disabled while you are a player in an active live game, but spectator and post-game review are supported.</p>
+  <footer class="foot">Positions stay in this browser session. Stockfish runs locally.</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

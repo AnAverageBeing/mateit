@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "MateIt Study",
+  "version": "2.4.4",
+  "description": "A separate chess study window with read-only Chess.com live, completed-game and analysis sync, optional automatic local Stockfish analysis, PGN review and board navigation.",
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": "assets/icon.png"
+  },
+  "icons": {
+    "128": "assets/icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.chess.com/analysis*",
+        "https://chess.com/analysis*",
+        "https://www.chess.com/game/*",
+        "https://chess.com/game/*"
+      ],
+      "js": [
+        "assets/page-bridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://www.chess.com/analysis*",
+        "https://chess.com/analysis*",
+        "https://www.chess.com/game/*",
+        "https://chess.com/game/*"
+      ],
+      "js": [
+        "assets/chess-core.js",
+        "assets/source-sync.js"
+      ],
+      "run_at": "document_idle",
+      "world": "ISOLATED"
+    }
+  ],
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "offscreen",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "assets/background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10191d">
+  <title>MateIt Study — Review workspace</title>
+  <link rel="stylesheet" href="study.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="MateIt Study home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="brand-copy"><strong>MateIt<span>/</span>Study</strong><small>CHESS REVIEW WORKSPACE</small></span>
+      </a>
+      <div class="topbar-right">
+        <div class="sync-state" id="sync-state" data-state="waiting"><span class="state-dot"></span><span id="sync-label">Waiting for a Chess.com board</span></div>
+        <button class="button button-quiet" id="open-source" type="button">Open Chess.com Analysis <span aria-hidden="true">↗</span></button>
+        <label class="button button-outline file-button" for="pgn-file">Import PGN</label>
+        <input id="pgn-file" type="file" accept=".pgn,.txt,text/plain" hidden>
+        <button class="button button-outline" id="paste-pgn" type="button">Paste PGN</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="board-column" aria-label="Chessboard and move history">
+        <div class="section-heading">
+          <div>
+            <div class="overline">POSITION REVIEW</div>
+            <h1 id="position-title">Ready when you are.</h1>
+            <p id="position-subtitle">Open Chess.com Analysis or a game page, or load a PGN to begin reviewing.</p>
+          </div>
+          <div class="position-count"><strong id="ply-count">—</strong><span>PLY</span></div>
+        </div>
+
+        <div class="board-layout">
+          <div class="eval-rail" id="board-eval-rail" aria-label="Position evaluation">
+            <div class="eval-rail-black" id="board-eval-black"></div>
+            <div class="eval-rail-white" id="board-eval-white"></div>
+          </div>
+          <div class="board-frame">
+            <div class="chessboard" id="chessboard" role="grid" aria-label="Chessboard"></div>
+            <svg class="arrow-layer" id="arrow-layer" viewBox="0 0 8 8" preserveAspectRatio="none" aria-hidden="true"></svg>
+            <div class="board-empty" id="board-empty">
+              <div class="empty-glyph" aria-hidden="true">♞</div>
+              <strong>No position loaded</strong>
+              <span>Connect an Analysis board or import a PGN.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="board-controls">
+          <div class="nav-controls">
+            <button class="icon-button" id="first-move" type="button" aria-label="Go to start" title="Start">|◀</button>
+            <button class="icon-button" id="previous-move" type="button" aria-label="Previous move" title="Previous move">←</button>
+            <button class="icon-button icon-button-next" id="next-move" type="button" aria-label="Next move" title="Next move">→</button>
+            <button class="icon-button" id="last-move" type="button" aria-label="Go to latest move" title="Latest">▶|</button>
+          </div>
+          <div class="board-control-right">
+            <button class="text-button" id="flip-board" type="button">⇅ Flip board</button>
+            <button class="follow-button is-following" id="follow-source" type="button"><span class="follow-dot"></span><span id="follow-label">Following source</span></button>
+          </div>
+        </div>
+
+        <section class="move-history">
+          <div class="move-history-head"><div><span class="overline">MOVE HISTORY</span><strong id="history-summary">No moves yet</strong></div><span class="history-source" id="history-source">WAITING</span></div>
+          <div class="move-list" id="move-list"><div class="move-empty">Moves will appear here when a game is connected.</div></div>
+        </section>
+      </section>
+
+      <aside class="analysis-column" aria-label="Stockfish analysis">
+        <div class="engine-heading">
+          <div class="engine-brand"><span class="engine-mark" aria-hidden="true">SF</span><div><div class="overline">LOCAL ENGINE</div><h2>Stockfish</h2></div></div>
+          <div class="engine-status" id="engine-status" data-state="idle"><span class="state-dot"></span><span id="engine-status-text">Standby</span></div>
+        </div>
+
+        <section class="evaluation-section">
+          <div class="eval-topline"><span class="overline">POSITION EVALUATION</span><span id="eval-perspective">White perspective</span></div>
+          <div class="eval-score-row"><strong id="eval-score">—</strong><span id="eval-depth">Awaiting analysis</span></div>
+          <div class="eval-bar" role="img" aria-label="Evaluation balance"><div id="eval-fill"></div></div>
+          <div class="eval-labels"><span>BLACK</span><span>WHITE</span></div>
+        </section>
+
+        <section class="engine-controls">
+          <div class="control-head"><span class="overline">SEARCH SETTINGS</span><button class="link-button" id="reset-settings" type="button">Reset</button></div>
+          <div class="control-grid">
+            <label class="field"><span>Search limit</span><select id="limit-type"><option value="depth">Depth</option><option value="time">Time</option></select></label>
+            <label class="field"><span id="limit-label">Depth (plies)</span><input id="limit-value" type="number" min="1" max="60" value="16"></label>
+            <label class="field"><span>Lines to show</span><select id="line-count"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label>
+            <label class="field field-toggle"><span><b>Show all arrows</b><small>Draw each ranked candidate on the board</small></span><input id="all-arrows" type="checkbox"><i></i></label>
+          </div>
+          <div class="analysis-actions"><button class="button button-primary" id="analyze" type="button" disabled>Analyze position <span aria-hidden="true">↗</span></button><button class="button button-auto" id="auto-analyze" type="button" aria-pressed="false" title="Automatically analyze each new position">Auto: Off</button><button class="button button-stop" id="stop" type="button" hidden>Stop</button></div>
+          <p class="analysis-notice" id="analysis-notice" role="status" hidden></p>
+        </section>
+
+        <section class="candidate-section">
+          <div class="candidate-heading"><div><span class="overline">CANDIDATE MOVES</span><p>Choose a line to highlight its arrow.</p></div><span class="candidate-count" id="candidate-count">0 lines</span></div>
+          <div class="candidate-list" id="candidate-list"><div class="candidate-empty"><span class="empty-mini-mark">↗</span><strong>No analysis yet</strong><span>Run Stockfish on the current position to see ranked lines.</span></div></div>
+          <div class="candidate-footer"><button class="link-button" id="copy-lines" type="button" disabled>Copy all lines</button><button class="link-button" id="clear-analysis" type="button" disabled>Clear results</button></div>
+        </section>
+
+        <section class="position-tools">
+          <div class="tool-row"><div><span class="overline">POSITION DATA</span><p>Current FEN</p></div><button class="link-button" id="copy-fen" type="button" disabled>Copy FEN</button></div>
+          <code id="fen-value">No position loaded.</code>
+          <div class="tool-foot"><span id="source-detail">No source connected</span><span>LOCAL ONLY</span></div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="app-footer"><span>MateIt Study 2.4.4</span><span>Study window · Source page remains untouched</span><span>Stockfish runs on this device</span></footer>
+  </div>
+
+  <dialog class="pgn-dialog" id="pgn-dialog">
+    <form method="dialog" class="dialog-head"><div><span class="overline">IMPORT GAME</span><h2>Paste a PGN</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></form>
+    <textarea id="pgn-text" spellcheck="false" placeholder='[Event "Game review"]\n\n1. e4 e5 2. Nf3 Nc6 *'></textarea>
+    <div class="dialog-actions"><span id="pgn-error" role="status"></span><button class="button button-primary" id="load-pgn" type="button">Load game</button></div>
+  </dialog>
+
+  <script src="../../assets/chess-core.js"></script>
+  <script src="study.js"></script>
+</body>
+</html>
